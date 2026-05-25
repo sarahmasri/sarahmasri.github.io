@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sarah Masri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Epilogue:wght@300;400;500&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ═══════════════════════════════════════════
+   RESET & TOKENS
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --ink:        #18120E;
+  --ink-mid:    #3C2F27;
+  --ink-mute:   #7A6A5F;
+  --cream:      #F6F1EA;
+  --cream-2:    #EDE6DB;
+  --cream-3:    #E2D9CC;
+  --rust:       #B8431A;
+  --rust-dark:  #8C3212;
+  --rust-pale:  #F0D5C8;
+  --sage:       #4A6741;
+  --sage-pale:  #D6E3D4;
+  --rule:       rgba(24,18,14,0.12);
+  --serif:      'Playfair Display', Georgia, serif;
+  --sans:       'Epilogue', sans-serif;
+  --mono:       'Fira Mono', monospace;
+  --nav-h:      64px;
+  --max:        1080px;
+  --ease:       cubic-bezier(0.22,1,0.36,1);
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+#site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(246,241,234,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+}
+.nav-logo em { font-style: italic; color: var(--rust); }
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-decoration: none;
+  padding: 0.5rem 0.85rem;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+.nav-links a:hover { color: var(--ink); background: var(--cream-2); }
+.nav-links a.active { color: var(--rust); }
+
+/* Hamburger */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+.nav-burger span {
+  display: block;
+  width: 22px; height: 1.5px;
+  background: var(--ink);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: var(--cream);
+  border-bottom: 1px solid var(--rule);
+  padding: 1rem 1.5rem;
+  z-index: 99;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.mobile-menu a {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-decoration: none;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+  display: block;
+  cursor: pointer;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a.active { color: var(--rust); }
+.mobile-menu.open { display: flex; }
+
+@media (max-width: 680px) {
+  #site-nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE WRAPPER
+═══════════════════════════════════════════ */
+#app {
+  padding-top: var(--nav-h);
+  min-height: 100vh;
+}
+
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   SHARED UTILITIES
+═══════════════════════════════════════════ */
+.container { max-width: var(--max); margin: 0 auto; padding: 0 3rem; }
+@media (max-width: 680px) { .container { padding: 0 1.5rem; } }
+
+.overline {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rust);
+  display: block;
+}
+
+.rule-line {
+  width: 40px; height: 2px;
+  background: var(--rust);
+  margin: 1rem 0 1.5rem;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE: HOME
+═══════════════════════════════════════════ */
+#page-home {
+  min-height: calc(100vh - var(--nav-h));
+}
+
+.home-hero {
+  min-height: calc(100vh - var(--nav-h));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 4rem 3rem;
+  gap: 4rem;
+}
+
+.hero-text {}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 1.5rem;
+}
+
+.hero-headline {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.hero-headline .italic { font-style: italic; color: var(--ink-mid); }
+
+.hero-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  line-height: 1.75;
+  max-width: 400px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  padding: 0.85rem 1.75rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--rust); transform: translateY(-1px); }
+
+.btn-secondary {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  padding: 0.85rem 1.75rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.15s;
+}
+.btn-secondary:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Illustrated stat cards */
+.stat-card {
+  background: var(--cream-2);
+  border: 1px solid var(--rule);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: attr(data-num);
+  position: absolute;
+  right: 1rem;
+  bottom: -0.75rem;
+  font-family: var(--serif);
+  font-size: 5rem;
+  color: rgba(24,18,14,0.06);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 0.35rem;
+}
+
+.stat-value {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.stat-value em { font-style: italic; color: var(--rust); }
+
+.stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+/* Home scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+.scroll-hint::after {
+  content: '';
+  width: 1px;
+  height: 40px;
+  background: var(--ink-mute);
+  opacity: 0.4;
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* Home featured strip */
+.home-strip {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: var(--cream-2);
+  padding: 2.5rem 3rem;
+  overflow: hidden;
+}
+
+.strip-track {
+  display: flex;
+  gap: 4rem;
+  animation: marquee 22s linear infinite;
+  white-space: nowrap;
+  width: max-content;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.strip-item {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.strip-item::after {
+  content: '✦';
+  color: var(--rust);
+  font-size: 8px;
+}
+
+/* Home feature cards */
+.home-features {
+  padding: 6rem 3rem;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.feat-card {
+  padding: 2rem;
+  border: 1px solid var(--rule);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+  background: transparent;
+  text-align: left;
+}
+.feat-card:hover { border-color: var(--rust); transform: translateY(-3px); }
+
+.feat-icon {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.feat-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.feat-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  line-height: 1.65;
+}
+.feat-link {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-top: 1rem;
+  display: block;
+}
+
+@media (max-width: 800px) {
+  .home-hero { grid-template-columns: 1fr; min-height: auto; padding: 3rem 1.5rem 4rem; }
+  .hero-visual { display: none; }
+  .features-grid { grid-template-columns: 1fr; }
+  .home-features { padding: 4rem 1.5rem; }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE: ABOUT
+═══════════════════════════════════════════ */
+#page-about { padding: 4rem 0 6rem; }
+
+.about-intro {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 3rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+  border-bottom: 1px solid var(--rule);
+}
+
+.about-headline {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.about-headline em { font-style: italic; color: var(--rust); }
+
+.about-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.about-body p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.8;
+}
+.about-body strong { font-weight: 500; color: var(--ink); }
+
+/* About pillars */
+.about-pillars {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 4rem 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 2.5rem;
+  border: 1px solid var(--rule);
+}
+
+.pillar {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--rule);
+}
+.pillar:last-child { border-right: none; }
+
+.pillar-num {
+  font-family: var(--serif);
+  font-size: 2.5rem;
+  color: var(--rust);
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.pillar-title {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pillar-text {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  line-height: 1.65;
+}
+
+/* About fun photos section */
+.about-life {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 4rem 3rem;
+}
+
+.life-grid {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.life-cell {
+  background: var(--cream-2);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  position: relative;
+}
+
+.life-cell-img {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  display: block;
+  filter: sepia(20%) saturate(90%);
+}
+
+/* Placeholder for when no real photos — illustrated tiles */
+.life-placeholder {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+}
+
+.life-placeholder .life-emoji { font-size: 2.5rem; }
+.life-placeholder .life-title {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--ink);
+  text-align: center;
+}
+.life-placeholder .life-caption {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.life-cell.tall { grid-row: span 2; }
+
+/* Photo upload note */
+.photo-note {
+  margin-top: 1.5rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-mute);
+  background: var(--cream-2);
+  border: 1px dashed var(--rule);
+  padding: 1rem 1.25rem;
+  border-radius: 2px;
+}
+.photo-note strong { color: var(--rust); font-weight: 500; }
+
+@media (max-width: 800px) {
+  .about-intro { grid-template-columns: 1fr; gap: 2.5rem; padding: 0 1.5rem 3rem; }
+  .pillars-grid { grid-template-columns: 1fr 1fr; }
+  .pillar { border-bottom: 1px solid var(--rule); }
+  .about-pillars, .about-life { padding: 3rem 1.5rem; }
+  .life-grid { grid-template-columns: 1fr 1fr; }
+  .life-cell.tall { grid-row: span 1; }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE: RESUME
+═══════════════════════════════════════════ */
+#page-resume { padding: 4rem 0 6rem; }
+
+.resume-header {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 3rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--rule);
+  gap: 2rem;
+}
+
+.resume-title-block {}
+.resume-page-title {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.resume-page-title em { font-style: italic; color: var(--rust); }
+.resume-sub {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  margin-top: 0.5rem;
+}
+
+.resume-body {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 5rem;
+  margin-top: 3rem;
+}
+
+/* Main column */
+.resume-main {}
+
+.resume-section {
+  margin-bottom: 3.5rem;
+}
+
+.resume-section-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.resume-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* Experience entries */
+.exp-entry {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.exp-entry:first-of-type { border-top: 1px solid var(--rule); }
+
+.exp-period {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ink-mute);
+  line-height: 1.6;
+  padding-top: 3px;
+}
+
+.exp-detail {}
+.exp-role {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+.exp-org-name {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 0.75rem;
+}
+
+.exp-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.exp-points li {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-mid);
+  padding-left: 1.1rem;
+  position: relative;
+  line-height: 1.6;
+}
+.exp-points li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--rust);
+  font-size: 10px;
+  top: 4px;
+}
+
+/* Sidebar column */
+.resume-sidebar {}
+
+.sidebar-block {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.sidebar-block:last-child { border-bottom: none; }
+
+.sidebar-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 1rem;
+}
+
+/* Education cards in sidebar */
+.edu-entry {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+.edu-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.edu-deg {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+.edu-inst {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink-mute);
+}
+.edu-yr {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--rust);
+  margin-top: 0.2rem;
+}
+
+/* Skills in sidebar */
+.skill-group-block { margin-bottom: 1.25rem; }
+.skill-group-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.skill-pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  background: var(--cream-3);
+  border: 1px solid var(--rule);
+  color: var(--ink-mid);
+  padding: 2px 8px;
+}
+
+/* Awards in sidebar */
+.award-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.award-item:first-child { border-top: 1px solid var(--rule); }
+.award-n { font-size: 12px; font-weight: 300; color: var(--ink-mid); line-height: 1.45; }
+.award-y { font-family: var(--mono); font-size: 10px; color: var(--ink-mute); flex-shrink: 0; }
+
+@media (max-width: 800px) {
+  .resume-header { padding: 0 1.5rem 2.5rem; flex-direction: column; align-items: flex-start; }
+  .resume-body { grid-template-columns: 1fr; gap: 0; padding: 0 1.5rem; }
+  .resume-sidebar { border-top: 1px solid var(--rule); padding-top: 2.5rem; }
+  .exp-entry { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE: LIFE (FUN)
+═══════════════════════════════════════════ */
+#page-life { padding: 4rem 0 6rem; }
+
+.life-hero {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 3rem 4rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.life-hero-headline {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+.life-hero-headline em { font-style: italic; color: var(--rust); }
+
+.life-hero-sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  max-width: 500px;
+}
+
+/* Bento grid of life tiles */
+.life-bento {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 4rem 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.bento-cell {
+  background: var(--cream-2);
+  border: 1px solid var(--rule);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.bento-cell:hover { border-color: var(--rust); }
+
+/* Span helpers */
+.col-2 { grid-column: span 2; }
+.col-3 { grid-column: span 3; }
+.col-4 { grid-column: span 4; }
+.col-6 { grid-column: span 6; }
+
+.bento-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 0.75rem;
+}
+
+.bento-icon {
+  font-size: 2.25rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.bento-title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.bento-body {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  line-height: 1.65;
+}
+
+.bento-stat {
+  font-family: var(--serif);
+  font-size: 3rem;
+  color: var(--rust);
+  font-style: italic;
+  line-height: 1;
+  margin: 0.5rem 0;
+}
+
+/* Wide photo placeholder */
+.photo-placeholder {
+  background: var(--cream-3);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
+  border: 2px dashed var(--cream-3);
+  position: relative;
+}
+.photo-placeholder .ph-emoji { font-size: 3rem; }
+.photo-placeholder .ph-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.photo-placeholder .ph-hint {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  opacity: 0.7;
+}
+
+/* Colour-accent cells */
+.bento-rust { background: var(--rust-pale); }
+.bento-sage { background: var(--sage-pale); }
+.bento-ink  { background: var(--ink); color: var(--cream); }
+.bento-ink .bento-title, .bento-ink .bento-body { color: var(--cream); }
+.bento-ink .bento-label { color: #B88080; }
+.bento-ink .bento-stat { color: var(--rust-pale); }
+
+/* Marquee words for comedy cell */
+.comedy-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.cword {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--ink-mid);
+  background: rgba(24,18,14,0.06);
+  padding: 3px 10px;
+}
+
+/* Photo instructions box */
+.photo-instructions {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 3rem;
+  background: var(--cream-2);
+  border-top: 1px solid var(--rule);
+}
+.photo-instructions h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+.photo-instructions ol {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.photo-instructions li {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  line-height: 1.6;
+}
+.photo-instructions code {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--cream-3);
+  padding: 1px 6px;
+  color: var(--rust);
+}
+
+@media (max-width: 800px) {
+  .life-hero, .life-bento, .photo-instructions { padding: 3rem 1.5rem; }
+  .bento-grid { grid-template-columns: 1fr 1fr; }
+  .col-2, .col-3, .col-4, .col-6 { grid-column: span 2; }
+  .col-6 { grid-column: span 2; }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE: CONTACT
+═══════════════════════════════════════════ */
+#page-contact { padding: 4rem 0 6rem; }
+
+.contact-layout {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+}
+
+.contact-left {}
+
+.contact-headline {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 4vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+.contact-headline em { font-style: italic; color: var(--rust); }
+
+.contact-blurb {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contact-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left 0.2s;
+}
+.contact-link-row:first-child { border-top: 1px solid var(--rule); }
+.contact-link-row:hover { padding-left: 0.5rem; }
+
+.contact-link-type {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  min-width: 80px;
+}
+
+.contact-link-value {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink);
+  flex: 1;
+  padding-left: 1.5rem;
+}
+
+.contact-arrow {
+  color: var(--rust);
+  font-size: 18px;
+}
+
+/* Contact form */
+.contact-form-wrap {}
+
+.contact-form-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.contact-form-sub {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-mute);
+  margin-bottom: 2rem;
+}
+
+.form-field {
+  margin-bottom: 1.25rem;
+}
+.form-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.form-input, .form-textarea {
+  width: 100%;
+  background: var(--cream-2);
+  border: 1px solid var(--rule);
+  padding: 0.75rem 1rem;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  border-radius: 0;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--rust); }
+.form-textarea { min-height: 140px; resize: vertical; }
+
+.form-submit {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  padding: 0.9rem 2rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+.form-submit:hover { background: var(--rust); }
+
+.form-sent {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+  background: var(--sage-pale);
+  border: 1px solid rgba(74,103,65,0.2);
+}
+.form-sent p {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--sage);
+}
+
+@media (max-width: 800px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem; }
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER (global)
+═══════════════════════════════════════════ */
+#site-footer {
+  border-top: 1px solid var(--rule);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+}
+.footer-left {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  color: var(--ink-mute);
+}
+.footer-right {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ink-mute);
+}
+@media (max-width: 680px) {
+  #site-footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE TRANSITION OVERLAY
+═══════════════════════════════════════════ */
+#transition-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--rust);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+  z-index: 200;
+}
+#transition-bar.loading { transform: scaleX(0.7); }
+#transition-bar.done    { transform: scaleX(1); opacity: 0; transition: transform 0.2s, opacity 0.3s 0.1s; }
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="transition-bar"></div>
+
+<!-- NAV -->
+<nav id="site-nav">
+  <a class="nav-logo" onclick="navigate('home')">Sarah <em>Masri</em></a>
+  <ul class="nav-links">
+    <li><a onclick="navigate('home')"   data-page="home">Home</a></li>
+    <li><a onclick="navigate('about')"  data-page="about">About</a></li>
+    <li><a onclick="navigate('resume')" data-page="resume">Résumé</a></li>
+    <li><a onclick="navigate('life')"   data-page="life">Life</a></li>
+    <li><a onclick="navigate('contact')" data-page="contact">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="navigate('home');closeMobile()"   data-page="home">Home</a>
+  <a onclick="navigate('about');closeMobile()"  data-page="about">About</a>
+  <a onclick="navigate('resume');closeMobile()" data-page="resume">Résumé</a>
+  <a onclick="navigate('life');closeMobile()"   data-page="life">Life</a>
+  <a onclick="navigate('contact');closeMobile()" data-page="contact">Contact</a>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+<!-- ══════════════ HOME ══════════════ -->
+<div class="page" id="page-home">
+
+  <div class="home-hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Vancouver, BC — Data Analyst &amp; Statistician</p>
+      <h1 class="hero-headline">
+        Where <span class="italic">data</span><br />
+        meets story.
+      </h1>
+      <p class="hero-sub">
+        I'm Sarah Masri — a statistician and data analyst turning complex models,
+        messy datasets, and tricky problems into clear, actionable insight.
+      </p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="navigate('resume')">View Résumé</button>
+        <button class="btn-secondary" onclick="navigate('contact')">Get in Touch</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="stat-card" data-num="MSc">
+        <p class="stat-label">Degree</p>
+        <p class="stat-value">MSc <em>Statistics</em></p>
+        <p style="font-size:12px;font-weight:300;color:var(--ink-mute);margin-top:0.25rem">University of British Columbia</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card" data-num="93">
+          <p class="stat-label">YoY Revenue Growth</p>
+          <p class="stat-value"><em>93%</em></p>
+          <p style="font-size:11px;font-weight:300;color:var(--ink-mute);margin-top:0.25rem">Avg at LMG</p>
+        </div>
+        <div class="stat-card" data-num="5+">
+          <p class="stat-label">Languages</p>
+          <p class="stat-value">6 <em>langs</em></p>
+          <p style="font-size:11px;font-weight:300;color:var(--ink-mute);margin-top:0.25rem">Python R SQL Julia Java C++</p>
+        </div>
+      </div>
+      <div class="stat-card" data-num="∞">
+        <p class="stat-label">Current Focus</p>
+        <p class="stat-value"><em>CDL</em> Vancouver</p>
+        <p style="font-size:12px;font-weight:300;color:var(--ink-mute);margin-top:0.25rem">Data infrastructure &amp; venture analytics</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Marquee strip -->
+  <div class="home-strip">
+    <div class="strip-track" aria-hidden="true">
+      <span class="strip-item">Statistical Modelling</span>
+      <span class="strip-item">Point Processes</span>
+      <span class="strip-item">Python · R · SQL</span>
+      <span class="strip-item">Epidemiology</span>
+      <span class="strip-item">Bioinformatics</span>
+      <span class="strip-item">Data Visualisation</span>
+      <span class="strip-item">Comedy &amp; Improv</span>
+      <span class="strip-item">Vancouver BC</span>
+      <span class="strip-item">Statistical Modelling</span>
+      <span class="strip-item">Point Processes</span>
+      <span class="strip-item">Python · R · SQL</span>
+      <span class="strip-item">Epidemiology</span>
+      <span class="strip-item">Bioinformatics</span>
+      <span class="strip-item">Data Visualisation</span>
+      <span class="strip-item">Comedy &amp; Improv</span>
+      <span class="strip-item">Vancouver BC</span>
+    </div>
+  </div>
+
+  <!-- Feature cards -->
+  <div class="home-features">
+    <span class="overline">Explore</span>
+    <div class="rule-line"></div>
+    <div class="features-grid">
+      <button class="feat-card" onclick="navigate('about')">
+        <span class="feat-icon">🎯</span>
+        <p class="feat-title">About Me</p>
+        <p class="feat-desc">Background, values, and the through-line from epidemiological models to operational data.</p>
+        <span class="feat-link">Learn more →</span>
+      </button>
+      <button class="feat-card" onclick="navigate('resume')">
+        <span class="feat-icon">📄</span>
+        <p class="feat-title">Résumé</p>
+        <p class="feat-desc">Full work history, education, skills, and selected projects — all in one place.</p>
+        <span class="feat-link">View résumé →</span>
+      </button>
+      <button class="feat-card" onclick="navigate('life')">
+        <span class="feat-icon">🎭</span>
+        <p class="feat-title">Life</p>
+        <p class="feat-desc">Stand-up, improv, skiing, piano — the stuff that happens outside the spreadsheet.</p>
+        <span class="feat-link">See more →</span>
+      </button>
+    </div>
+  </div>
+
+</div><!-- /home -->
+
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<div class="page" id="page-about">
+
+  <div class="about-intro container">
+    <div>
+      <span class="overline">About</span>
+      <div class="rule-line"></div>
+      <h2 class="about-headline">Statistics,<br /><em>stories,</em><br />and the space between.</h2>
+    </div>
+    <div class="about-body">
+      <p>I'm a data analyst and statistician based in Vancouver, BC. My work sits at the intersection of <strong>rigorous quantitative modelling</strong> and the kind of clear communication that actually gets used — by decision-makers, collaborators, and teams across disciplines.</p>
+      <p>My academic background is in mathematics and statistics at UBC, where I completed an MSc focused on <strong>epidemiological modelling</strong> — specifically formalising the equivalence between stochastic compartmental models (SIR/SEIR) and the Hawkes process as a unified mathematical framework.</p>
+      <p>Today at <strong>Creative Destruction Lab Vancouver</strong>, I manage data infrastructure and build reporting workflows that support both operational decisions and venture-level strategy across multiple programme streams.</p>
+      <p>I care about building systems that are not just technically correct, but genuinely <strong>usable</strong> — and about making complex ideas legible to the people who need to act on them.</p>
+    </div>
+  </div>
+
+  <div class="about-pillars container">
+    <span class="overline">How I work</span>
+    <div class="rule-line"></div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <p class="pillar-num">01</p>
+        <p class="pillar-title">Rigour</p>
+        <p class="pillar-text">Statistical thinking from first principles — not off-the-shelf answers.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar-num">02</p>
+        <p class="pillar-title">Clarity</p>
+        <p class="pillar-text">Complex outputs deserve simple, honest communication. Always.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar-num">03</p>
+        <p class="pillar-title">Curiosity</p>
+        <p class="pillar-text">From epidemiology to bioinformatics to comedy — context is everything.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar-num">04</p>
+        <p class="pillar-title">Craft</p>
+        <p class="pillar-text">Good work is in the details — in code, in writing, and in improv scenes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-life container">
+    <span class="overline">Beyond work</span>
+    <div class="rule-line"></div>
+    <div class="life-grid">
+      <div class="life-cell tall">
+        <div class="life-placeholder" style="min-height:460px">
+          <span class="life-emoji">🎭</span>
+          <p class="life-title">Comedy &amp; Improv</p>
+          <p class="life-caption">Performing stand-up and improv, running workshops at Little Mountain Gallery</p>
+        </div>
+      </div>
+      <div class="life-cell">
+        <div class="life-placeholder">
+          <span class="life-emoji">⛷️</span>
+          <p class="life-title">Skiing</p>
+          <p class="life-caption">Whistler when possible</p>
+        </div>
+      </div>
+      <div class="life-cell">
+        <div class="life-placeholder">
+          <span class="life-emoji">🎹</span>
+          <p class="life-title">Music</p>
+          <p class="life-caption">Piano, marimba, guitar</p>
+        </div>
+      </div>
+      <div class="life-cell">
+        <div class="life-placeholder">
+          <span class="life-emoji">🏋️</span>
+          <p class="life-title">Training</p>
+          <p class="life-caption">Progressive overload, leg days, the works</p>
+        </div>
+      </div>
+      <div class="life-cell">
+        <div class="life-placeholder">
+          <span class="life-emoji">🐕</span>
+          <p class="life-title">Dog walks</p>
+          <p class="life-caption">Vancouver's best trails, obviously</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="photo-note">
+      <strong>📸 Add your own photos:</strong> Replace the placeholder tiles above by swapping the emoji cells for <code>&lt;img&gt;</code> tags pointing to images in your repo's <code>/assets/</code> folder — or drop Unsplash URLs directly as <code>src</code> attributes.
+    </p>
+  </div>
+
+</div><!-- /about -->
+
+
+<!-- ══════════════ RÉSUMÉ ══════════════ -->
+<div class="page" id="page-resume">
+
+  <div class="resume-header container">
+    <div class="resume-title-block">
+      <h2 class="resume-page-title">Résumé</h2>
+      <p class="resume-sub">Vancouver, BC, Canada</p>
+    </div>
+    <button class="btn-primary" onclick="window.print()">Print / Save PDF</button>
+  </div>
+
+  <div class="resume-body">
+    <!-- Main column -->
+    <div class="resume-main">
+
+      <div class="resume-section">
+        <p class="resume-section-title">Experience</p>
+
+        <div class="exp-entry">
+          <div class="exp-period">Apr 2026<br />Present</div>
+          <div class="exp-detail">
+            <p class="exp-role">Data Analyst</p>
+            <p class="exp-org-name">Creative Destruction Lab — Vancouver</p>
+            <ul class="exp-points">
+              <li>Manage organisational databases and improve data infrastructure supporting operational and strategic decision-making across multiple programme streams.</li>
+              <li>Develop standard operating procedures and reporting workflows to improve data consistency, process efficiency, and cross-functional collaboration.</li>
+              <li>Analyse complex operational and venture data using SQL, R, and spreadsheet-based tools to generate actionable insights for internal stakeholders.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-period">May 2022<br />May 2025</div>
+          <div class="exp-detail">
+            <p class="exp-role">Modelling Specialist</p>
+            <p class="exp-org-name">UBC Department of Statistics</p>
+            <ul class="exp-points">
+              <li>Conducted graduate research developing statistical and point process models for infectious disease spread, advancing machine learning approaches in epidemiology.</li>
+              <li>Developed models for analysing high-dimensional gene expression data in bioinformatics, enabling lineage tracing and identification of cell progeny over time.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-period">Apr 2023<br />Apr 2026</div>
+          <div class="exp-detail">
+            <p class="exp-role">Outreach Coordinator</p>
+            <p class="exp-org-name">Little Mountain Gallery Comedy Club</p>
+            <ul class="exp-points">
+              <li>Coordinated volunteers and contractors to deliver smooth comedy events while developing marketing strategy and increasing brand awareness.</li>
+              <li>Drove average 93% year-over-year revenue growth 2024–2025, with monthly peaks exceeding 200%.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-period">Apr 2023<br />Aug 2023</div>
+          <div class="exp-detail">
+            <p class="exp-role">Data Analyst</p>
+            <p class="exp-org-name">UBC Faculty of Education</p>
+            <ul class="exp-points">
+              <li>Conducted intersectional analysis of survey data supporting research on educational equity for Black Canadian secondary and post-secondary students in Vancouver.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry">
+          <div class="exp-period">May 2021<br />Sep 2021</div>
+          <div class="exp-detail">
+            <p class="exp-role">Engineering &amp; Technology Co-op</p>
+            <p class="exp-org-name">TELUS Communications Inc.</p>
+            <ul class="exp-points">
+              <li>Developed incident response metrics supporting major events teams across six operational teams.</li>
+              <li>Built interactive visualisations modelling incident management problems including network outages.</li>
+              <li>Developed and supported modelling for a forest fire alert system assessing risk to cellular towers.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <p class="resume-section-title">Selected Projects</p>
+        <div class="exp-entry">
+          <div class="exp-period">MSc Thesis</div>
+          <div class="exp-detail">
+            <p class="exp-role">Epidemiological Modelling</p>
+            <ul class="exp-points">
+              <li>Designed computationally efficient models enhancing parameter estimation for SIR/SEIR frameworks, formalising their connection to the mathematical point process for more accurate, scalable disease modelling.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-entry">
+          <div class="exp-period">Research</div>
+          <div class="exp-detail">
+            <p class="exp-role">Modelling Student Knowledge in Educational Games</p>
+            <ul class="exp-points">
+              <li>Built a model to measure the effectiveness of gamification for basic tasks for young children.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-entry">
+          <div class="exp-period">Software</div>
+          <div class="exp-detail">
+            <p class="exp-role">Canadian Improv Games Tournament Software</p>
+            <ul class="exp-points">
+              <li>Developed Java software to automate performance scheduling for the Canadian Improv Games, eliminating manual planning while preserving tournament integrity.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /resume-main -->
+
+    <!-- Sidebar -->
+    <div class="resume-sidebar">
+
+      <div class="sidebar-block">
+        <p class="sidebar-label">Education</p>
+        <div class="edu-entry">
+          <p class="edu-deg">MSc Statistics</p>
+          <p class="edu-inst">University of British Columbia</p>
+          <p class="edu-yr">2023 – 2025</p>
+        </div>
+        <div class="edu-entry">
+          <p class="edu-deg">BSc Combined Honours<br />Mathematics &amp; Statistics</p>
+          <p class="edu-inst">University of British Columbia</p>
+          <p class="edu-yr">2018 – 2023</p>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <p class="sidebar-label">Technical Skills</p>
+        <div class="skill-group-block">
+          <p class="skill-group-name">Languages</p>
+          <div class="skill-pills">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">R</span>
+            <span class="skill-pill">SQL</span>
+            <span class="skill-pill">Julia</span>
+            <span class="skill-pill">Java</span>
+            <span class="skill-pill">C++</span>
+          </div>
+        </div>
+        <div class="skill-group-block">
+          <p class="skill-group-name">Libraries</p>
+          <div class="skill-pills">
+            <span class="skill-pill">NumPy</span>
+            <span class="skill-pill">Pandas</span>
+            <span class="skill-pill">SciPy</span>
+            <span class="skill-pill">Scanpy</span>
+            <span class="skill-pill">anndata</span>
+            <span class="skill-pill">ggplot2</span>
+            <span class="skill-pill">dplyr</span>
+            <span class="skill-pill">knitr</span>
+          </div>
+        </div>
+        <div class="skill-group-block">
+          <p class="skill-group-name">Tools</p>
+          <div class="skill-pills">
+            <span class="skill-pill">Tableau</span>
+            <span class="skill-pill">Git</span>
+            <span class="skill-pill">Excel</span>
+            <span class="skill-pill">Airtable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <p class="sidebar-label">Awards &amp; Honours</p>
+        <div class="award-item">
+          <span class="award-n">Constance Van Eeden Scholarship</span>
+          <span class="award-y">2023</span>
+        </div>
+        <div class="award-item">
+          <span class="award-n">NSERC Undergraduate Research Award</span>
+          <span class="award-y">2022</span>
+        </div>
+        <div class="award-item">
+          <span class="award-n">Dean's Honour List</span>
+          <span class="award-y">2019, 2020</span>
+        </div>
+        <div class="award-item">
+          <span class="award-n">BC Achievement Scholarship</span>
+          <span class="award-y">2018</span>
+        </div>
+        <div class="award-item">
+          <span class="award-n">BC District/Authority Scholarship</span>
+          <span class="award-y">2018</span>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <p class="sidebar-label">Community</p>
+        <p style="font-size:13px;font-weight:300;color:var(--ink-mute);line-height:1.65">Canadian Improv Games — referee, judge &amp; scorekeeper. Improv Camp — workshop facilitator.</p>
+      </div>
+
+    </div><!-- /sidebar -->
+  </div><!-- /resume-body -->
+
+</div><!-- /resume -->
+
+
+<!-- ══════════════ LIFE ══════════════ -->
+<div class="page" id="page-life">
+
+  <div class="life-hero container">
+    <span class="overline">Life</span>
+    <div class="rule-line"></div>
+    <h2 class="life-hero-headline">Beyond the<br /><em>spreadsheet.</em></h2>
+    <p class="life-hero-sub">Statistics by day — stand-up, slopes, and piano by night. Here's what keeps things interesting.</p>
+  </div>
+
+  <div class="life-bento container">
+    <div class="bento-grid">
+
+      <!-- Comedy — large -->
+      <div class="bento-cell col-4 bento-ink">
+        <p class="bento-label">Main character energy</p>
+        <span class="bento-icon">🎭</span>
+        <p class="bento-title">Comedy &amp; Improv</p>
+        <p class="bento-body">Performing stand-up and improv comedy, plus producing and coordinating shows at Little Mountain Gallery. There's a surprising amount of overlap between statistics and comedy — both are about recognising patterns and subverting expectations.</p>
+        <div class="comedy-words" style="margin-top:1rem">
+          <span class="cword" style="color:var(--rust-pale)">timing</span>
+          <span class="cword" style="color:var(--rust-pale)">yes, and</span>
+          <span class="cword" style="color:var(--rust-pale)">callbacks</span>
+          <span class="cword" style="color:var(--rust-pale)">subversion</span>
+          <span class="cword" style="color:var(--rust-pale)">presence</span>
+        </div>
+      </div>
+
+      <!-- Skiing -->
+      <div class="bento-cell col-2">
+        <p class="bento-label">Winter sport</p>
+        <span class="bento-icon">⛷️</span>
+        <p class="bento-title">Skiing</p>
+        <p class="bento-body">Whistler when possible. Chasing good snow and longer runs.</p>
+      </div>
+
+      <!-- Music stat -->
+      <div class="bento-cell col-2 bento-rust">
+        <p class="bento-label">Instruments</p>
+        <p class="bento-stat">3</p>
+        <p class="bento-title">Piano · Marimba · Guitar</p>
+        <p class="bento-body" style="color:var(--rust-dark)">Started with piano, picked up marimba through music school, guitar is the ongoing project.</p>
+      </div>
+
+      <!-- Training -->
+      <div class="bento-cell col-2">
+        <p class="bento-label">In the gym</p>
+        <span class="bento-icon">🏋️</span>
+        <p class="bento-title">Weight Training</p>
+        <p class="bento-body">Structured programme — leg days, upper body splits, progressive overload. Consistency over intensity.</p>
+      </div>
+
+      <!-- Photo placeholder — wide -->
+      <div class="bento-cell col-4" style="padding:0;border:1px dashed var(--rule);">
+        <div class="photo-placeholder" style="min-height:240px">
+          <span class="ph-emoji">📸</span>
+          <span class="ph-label">Your photo here</span>
+          <span class="ph-hint">Replace with an &lt;img&gt; tag pointing to /assets/photo.jpg</span>
+        </div>
+      </div>
+
+      <!-- Dog -->
+      <div class="bento-cell col-2 bento-sage">
+        <p class="bento-label">Best coworker</p>
+        <span class="bento-icon">🐕</span>
+        <p class="bento-title">Dog Walks</p>
+        <p class="bento-body" style="color:var(--sage)">Vancouver's trails are excellent. So is the dog.</p>
+      </div>
+
+      <!-- Improv Games -->
+      <div class="bento-cell col-3">
+        <p class="bento-label">Giving back</p>
+        <span class="bento-icon">🏆</span>
+        <p class="bento-title">Canadian Improv Games</p>
+        <p class="bento-body">Referee, judge, and scorekeeper — supporting youth development in improvisational theatre and fair, engaging competition.</p>
+      </div>
+
+      <!-- Teaching -->
+      <div class="bento-cell col-3">
+        <p class="bento-label">Workshop facilitation</p>
+        <span class="bento-icon">🎤</span>
+        <p class="bento-title">Improv Camp</p>
+        <p class="bento-body">Running workshops that build creativity and confidence through performance — one of the most direct ways to see a skill land in real time.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="photo-instructions">
+    <h3>📸 How to add your own photos</h3>
+    <ol>
+      <li>Create an <code>assets/</code> folder in the root of your GitHub repo.</li>
+      <li>Upload your photos there (e.g. <code>assets/skiing.jpg</code>, <code>assets/show.jpg</code>).</li>
+      <li>In the HTML, find any <code>photo-placeholder</code> cell and replace its contents with: <code>&lt;img src="assets/skiing.jpg" alt="Skiing" style="width:100%;height:100%;min-height:240px;object-fit:cover;display:block;"&gt;</code></li>
+      <li>Repeat for as many tiles as you like — every cell with the dashed border is swappable.</li>
+    </ol>
+  </div>
+
+</div><!-- /life -->
+
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-layout container" style="padding-top:1rem">
+
+    <div class="contact-left">
+      <span class="overline">Contact</span>
+      <div class="rule-line"></div>
+      <h2 class="contact-headline">Let's<br /><em>connect.</em></h2>
+      <p class="contact-blurb">
+        Whether it's a data problem, a collaboration, an opportunity, or just a question —
+        I'd love to hear from you.
+      </p>
+
+      <div class="contact-links">
+        <a class="contact-link-row" href="https://www.instagram.com/statisticallysarah/" target="_blank">
+          <span class="contact-link-type">Instagram</span>
+          <span class="contact-link-value">@statisticallysarah</span>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a class="contact-link-row" href="https://linkedin.com" target="_blank">
+          <span class="contact-link-type">LinkedIn</span>
+          <span class="contact-link-value">linkedin.com/in/sarahmasri</span>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a class="contact-link-row" href="https://github.com" target="_blank">
+          <span class="contact-link-type">GitHub</span>
+          <span class="contact-link-value">github.com/sarahmasri</span>
+          <span class="contact-arrow">→</span>
+        </a>
+        <div class="contact-link-row" style="cursor:default">
+          <span class="contact-link-type">Location</span>
+          <span class="contact-link-value">Vancouver, BC, Canada</span>
+          <span class="contact-arrow" style="opacity:0.3">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap">
+      <p class="contact-form-title">Send a message</p>
+      <p class="contact-form-sub">Fill this out and I'll get back to you.</p>
+
+      <div id="contact-form">
+        <div class="form-field">
+          <label class="form-label" for="f-name">Name</label>
+          <input class="form-input" id="f-name" type="text" placeholder="Your name" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="f-email">Email</label>
+          <input class="form-input" id="f-email" type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="f-subject">Subject</label>
+          <input class="form-input" id="f-subject" type="text" placeholder="What's this about?" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="f-msg">Message</label>
+          <textarea class="form-textarea" id="f-msg" placeholder="Your message…"></textarea>
+        </div>
+        <button class="form-submit" onclick="handleFormSubmit()">Send Message</button>
+      </div>
+
+      <div class="form-sent" id="form-sent">
+        <p>✓ &nbsp;Thanks! Message noted. (To wire this up for real, add a <a href="https://formspree.io" target="_blank" style="color:var(--sage)">Formspree</a> endpoint or similar.)</p>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /contact -->
+
+</div><!-- /app -->
+
+<!-- FOOTER -->
+<footer id="site-footer">
+  <span class="footer-left">Sarah <em style="font-family:var(--serif);font-style:italic">Masri</em></span>
+  <span class="footer-right">Vancouver, BC &nbsp;·&nbsp; 2026</span>
+</footer>
+
+<script>
+/* ═══════════════════════════
+   ROUTER
+═══════════════════════════ */
+const PAGES = ['home','about','resume','life','contact'];
+
+function navigate(page) {
+  if (!PAGES.includes(page)) page = 'home';
+
+  // Progress bar
+  const bar = document.getElementById('transition-bar');
+  bar.className = 'loading';
+
+  // Hide all pages
+  PAGES.forEach(p => {
+    const el = document.getElementById('page-' + p);
+    if (el) { el.classList.remove('active'); el.style.display = 'none'; }
+  });
+
+  setTimeout(() => {
+    const target = document.getElementById('page-' + page);
+    if (target) {
+      target.style.display = 'block';
+      requestAnimationFrame(() => { target.classList.add('active'); });
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    updateNav(page);
+    window.location.hash = page === 'home' ? '' : page;
+    bar.className = 'done';
+    setTimeout(() => { bar.className = ''; }, 500);
+  }, 120);
+}
+
+function updateNav(page) {
+  document.querySelectorAll('[data-page]').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === page);
+  });
+}
+
+// Hash routing on load
+function initRouter() {
+  const hash = window.location.hash.replace('#','').trim();
+  navigate(PAGES.includes(hash) ? hash : 'home');
+}
+
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.replace('#','').trim();
+  navigate(PAGES.includes(hash) ? hash : 'home');
+});
+
+/* ═══════════════════════════
+   MOBILE MENU
+═══════════════════════════ */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobile-menu');
+let menuOpen = false;
+
+burger.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  const spans = burger.querySelectorAll('span');
+  if (menuOpen) {
+    spans[0].style.transform = 'translateY(6.5px) rotate(45deg)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'translateY(-6.5px) rotate(-45deg)';
+  } else {
+    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
+});
+
+function closeMobile() {
+  menuOpen = false;
+  mobileMenu.classList.remove('open');
+  const spans = burger.querySelectorAll('span');
+  spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+}
+
+/* ═══════════════════════════
+   CONTACT FORM
+═══════════════════════════ */
+function handleFormSubmit() {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const msg = document.getElementById('f-msg').value.trim();
+  if (!name || !email || !msg) {
+    alert('Please fill in name, email, and message.');
+    return;
+  }
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-sent').style.display = 'block';
+}
+
+/* ═══════════════════════════
+   INIT
+═══════════════════════════ */
+initRouter();
+</script>
+</body>
+</html>
