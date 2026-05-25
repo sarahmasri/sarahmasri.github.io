@@ -1302,15 +1302,7 @@ body {
       <span class="strip-item">Epidemiology</span>
       <span class="strip-item">Bioinformatics</span>
       <span class="strip-item">Data Visualisation</span>
-      <span class="strip-item">Comedy &amp; Improv</span>
-      <span class="strip-item">Vancouver BC</span>
-      <span class="strip-item">Statistical Modelling</span>
-      <span class="strip-item">Point Processes</span>
-      <span class="strip-item">Python · R · SQL</span>
-      <span class="strip-item">Epidemiology</span>
-      <span class="strip-item">Bioinformatics</span>
-      <span class="strip-item">Data Visualisation</span>
-      <span class="strip-item">Comedy &amp; Improv</span>
+      <span class="strip-item">Stand-up Comedy</span>
       <span class="strip-item">Vancouver BC</span>
     </div>
   </div>
@@ -1335,7 +1327,7 @@ body {
       <button class="feat-card" onclick="navigate('life')">
         <span class="feat-icon">🎭</span>
         <p class="feat-title">Life</p>
-        <p class="feat-desc">Stand-up, improv, skiing, piano — the stuff that happens outside the spreadsheet.</p>
+        <p class="feat-desc">Stand-up, skiing, piano — the stuff that happens outside the spreadsheet.</p>
         <span class="feat-link">See more →</span>
       </button>
     </div>
@@ -1352,6 +1344,9 @@ body {
       <span class="overline">About</span>
       <div class="rule-line"></div>
       <h2 class="about-headline">Statistics,<br /><em>stories,</em><br />and the space between.</h2>
+      <div style="margin-top:2rem;border:1px solid var(--rule);overflow:hidden;">
+        <img src="assets/headshot.jpg" alt="Sarah Masri" style="width:100%;max-width:320px;display:block;object-fit:cover;filter:sepia(10%) saturate(85%);" />
+      </div>
     </div>
     <div class="about-body">
       <p>I'm a data analyst and statistician based in Vancouver, BC. My work sits at the intersection of <strong>rigorous quantitative modelling</strong> and the kind of clear communication that actually gets used — by decision-makers, collaborators, and teams across disciplines.</p>
@@ -1393,11 +1388,7 @@ body {
     <div class="rule-line"></div>
     <div class="life-grid">
       <div class="life-cell tall">
-        <div class="life-placeholder" style="min-height:460px">
-          <span class="life-emoji">🎭</span>
-          <p class="life-title">Comedy &amp; Improv</p>
-          <p class="life-caption">Performing stand-up and improv, running workshops at Little Mountain Gallery</p>
-        </div>
+        <img src="assets/stand-up.jpeg" alt="Sarah performing stand-up comedy" style="width:100%;height:100%;min-height:460px;object-fit:cover;display:block;filter:sepia(15%) saturate(90%);" />
       </div>
       <div class="life-cell">
         <div class="life-placeholder">
@@ -1421,17 +1412,11 @@ body {
         </div>
       </div>
       <div class="life-cell">
-        <div class="life-placeholder">
-          <span class="life-emoji">🐕</span>
-          <p class="life-title">Dog walks</p>
-          <p class="life-caption">Vancouver's best trails, obviously</p>
-        </div>
+        <img src="assets/sarah-and-rocky.jpg" alt="Sarah and Rocky" style="width:100%;height:100%;min-height:200px;object-fit:cover;display:block;filter:sepia(15%) saturate(90%);" />
       </div>
     </div>
 
-    <p class="photo-note">
-      <strong>📸 Add your own photos:</strong> Replace the placeholder tiles above by swapping the emoji cells for <code>&lt;img&gt;</code> tags pointing to images in your repo's <code>/assets/</code> folder — or drop Unsplash URLs directly as <code>src</code> attributes.
-    </p>
+
   </div>
 
 </div><!-- /about -->
@@ -1655,9 +1640,9 @@ body {
       <!-- Comedy — large -->
       <div class="bento-cell col-4 bento-ink">
         <p class="bento-label">Main character energy</p>
-        <span class="bento-icon">🎭</span>
-        <p class="bento-title">Comedy &amp; Improv</p>
-        <p class="bento-body">Performing stand-up and improv comedy, plus producing and coordinating shows at Little Mountain Gallery. There's a surprising amount of overlap between statistics and comedy — both are about recognising patterns and subverting expectations.</p>
+        <span class="bento-icon">🎤</span>
+        <p class="bento-title">Stand-up</p>
+        <p class="bento-body">Performing stand-up comedy and producing shows at Little Mountain Gallery. There's a surprising amount of overlap between statistics and stand-up — both are about recognising patterns and subverting expectations.</p>
         <div class="comedy-words" style="margin-top:1rem">
           <span class="cword" style="color:var(--rust-pale)">timing</span>
           <span class="cword" style="color:var(--rust-pale)">yes, and</span>
@@ -1691,21 +1676,14 @@ body {
         <p class="bento-body">Structured programme — leg days, upper body splits, progressive overload. Consistency over intensity.</p>
       </div>
 
-      <!-- Photo placeholder — wide -->
-      <div class="bento-cell col-4" style="padding:0;border:1px dashed var(--rule);">
-        <div class="photo-placeholder" style="min-height:240px">
-          <span class="ph-emoji">📸</span>
-          <span class="ph-label">Your photo here</span>
-          <span class="ph-hint">Replace with an &lt;img&gt; tag pointing to /assets/photo.jpg</span>
-        </div>
+      <!-- Stand-up photo — wide -->
+      <div class="bento-cell col-4" style="padding:0;border:1px solid var(--rule);">
+        <img src="assets/stand-up.jpeg" alt="Sarah performing stand-up" style="width:100%;height:100%;min-height:240px;object-fit:cover;display:block;filter:sepia(15%) saturate(90%);" />
       </div>
 
       <!-- Dog -->
-      <div class="bento-cell col-2 bento-sage">
-        <p class="bento-label">Best coworker</p>
-        <span class="bento-icon">🐕</span>
-        <p class="bento-title">Dog Walks</p>
-        <p class="bento-body" style="color:var(--sage)">Vancouver's trails are excellent. So is the dog.</p>
+      <div class="bento-cell col-2" style="padding:0;border:1px solid var(--rule);">
+        <img src="assets/sarah-and-rocky.jpg" alt="Sarah and Rocky" style="width:100%;height:100%;min-height:200px;object-fit:cover;display:block;filter:sepia(15%) saturate(90%);" />
       </div>
 
       <!-- Improv Games -->
@@ -1727,15 +1705,7 @@ body {
     </div>
   </div>
 
-  <div class="photo-instructions">
-    <h3>📸 How to add your own photos</h3>
-    <ol>
-      <li>Create an <code>assets/</code> folder in the root of your GitHub repo.</li>
-      <li>Upload your photos there (e.g. <code>assets/skiing.jpg</code>, <code>assets/show.jpg</code>).</li>
-      <li>In the HTML, find any <code>photo-placeholder</code> cell and replace its contents with: <code>&lt;img src="assets/skiing.jpg" alt="Skiing" style="width:100%;height:100%;min-height:240px;object-fit:cover;display:block;"&gt;</code></li>
-      <li>Repeat for as many tiles as you like — every cell with the dashed border is swappable.</li>
-    </ol>
-  </div>
+
 
 </div><!-- /life -->
 
