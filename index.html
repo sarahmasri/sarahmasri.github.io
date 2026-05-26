@@ -253,6 +253,8 @@ body {
   padding: 0.85rem 1.75rem;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  display: inline-block;
 }
 .btn-primary:hover { background: var(--rust); transform: translateY(-1px); }
 
@@ -1286,7 +1288,7 @@ body {
         </div>
       </div>
       <div class="stat-card" style="padding:0;overflow:hidden;height:180px;">
-        <img src="assets/headshot-wide.jpg" alt="Sarah Masri" style="width:100%;height:100%;display:block;object-fit:cover;object-position:center 15%;filter:sepia(10%) saturate(85%);" />
+        <img src="assets/headshot.jpg" alt="Sarah Masri" style="width:100%;height:100%;display:block;object-fit:cover;object-position:center 15%;filter:sepia(10%) saturate(85%);" />
       </div>
     </div>
   </div>
@@ -1354,33 +1356,6 @@ body {
     </div>
   </div>
 
-  <!-- <div class="about-pillars container">
-    <span class="overline">How I work</span>
-    <div class="rule-line"></div>
-    <div class="pillars-grid">
-      <div class="pillar">
-        <p class="pillar-num">01</p>
-        <p class="pillar-title">Rigour</p>
-        <p class="pillar-text">Statistical thinking from first principles — not off-the-shelf answers.</p>
-      </div>
-      <div class="pillar">
-        <p class="pillar-num">02</p>
-        <p class="pillar-title">Clarity</p>
-        <p class="pillar-text">Complex outputs deserve simple, honest communication. Always.</p>
-      </div>
-      <div class="pillar">
-        <p class="pillar-num">03</p>
-        <p class="pillar-title">Curiosity</p>
-        <p class="pillar-text">From epidemiology to bioinformatics to comedy — context is everything.</p>
-      </div>
-      <div class="pillar">
-        <p class="pillar-num">04</p>
-        <p class="pillar-title">Craft</p>
-        <p class="pillar-text">Good work is in the details — in code, in writing, and in improv scenes.</p>
-      </div>
-    </div>
-  </div> -->
-
   <div class="about-life container">
     <span class="overline">Beyond work</span>
     <div class="rule-line"></div>
@@ -1413,8 +1388,6 @@ body {
         <img src="assets/sarah-and-rocky.jpg" alt="Sarah and Rocky" style="width:100%;height:100%;min-height:200px;object-fit:cover;display:block;filter:sepia(15%) saturate(90%);" />
       </div>
     </div>
-
-
   </div>
 
 </div><!-- /about -->
@@ -1640,16 +1613,9 @@ body {
         <p class="bento-label">Comedy</p>
         <p class="bento-title">Stand-up Comedy</p>
         <p class="bento-body">Whenever possible I spend my time performing and integrating with the incredible local comedy scene.</p>
-        <!-- <div class="comedy-words" style="margin-top:1rem">
-          <span class="cword" style="color:var(--rust-pale)">timing</span>
-          <span class="cword" style="color:var(--rust-pale)">yes, and</span>
-          <span class="cword" style="color:var(--rust-pale)">callbacks</span>
-          <span class="cword" style="color:var(--rust-pale)">subversion</span>
-          <span class="cword" style="color:var(--rust-pale)">presence</span>
-        </div> -->
       </div>
 
-      <!-- Skiing -->
+      <!-- Dog -->
       <div class="bento-cell col-2">
         <p class="bento-label">Rocky</p>
         <p class="bento-title">Time with my dog</p>
@@ -1675,31 +1641,13 @@ body {
         <img src="assets/stand-up.jpeg" alt="Sarah performing stand-up" style="width:100%;height:100%;min-height:240px;object-fit:cover;display:block;filter:sepia(15%) saturate(90%);" />
       </div>
 
-      <!-- Dog -->
+      <!-- Dog photo -->
       <div class="bento-cell col-2" style="padding:0;border:1px solid var(--rule);">
         <img src="assets/sarah-and-rocky.jpg" alt="Sarah and Rocky" style="width:100%;height:100%;min-height:200px;object-fit:cover;display:block;filter:sepia(15%) saturate(90%);" />
       </div>
 
-      <!-- Improv Games -->
-      <!-- <div class="bento-cell col-3">
-        <p class="bento-label">Giving back</p>
-        <span class="bento-icon">🏆</span>
-        <p class="bento-title">Canadian Improv Games</p>
-        <p class="bento-body">Referee, judge, and scorekeeper — supporting youth development in improvisational theatre and fair, engaging competition.</p>
-      </div> -->
-
-      <!-- Teaching -->
-      <!-- <div class="bento-cell col-3">
-        <p class="bento-label">Workshop facilitation</p>
-        <span class="bento-icon">🎤</span>
-        <p class="bento-title">Improv Camp</p>
-        <p class="bento-body">Running workshops that build creativity and confidence through performance — one of the most direct ways to see a skill land in real time.</p>
-      </div> -->
-
     </div>
   </div>
-
-
 
 </div><!-- /life -->
 
@@ -1740,32 +1688,33 @@ body {
         </div>
       </div>
     </div>
-<div class="contact-form-wrap">
+
+    <div class="contact-form-wrap">
       <p class="contact-form-title">Send a message</p>
       <p class="contact-form-sub">Fill this out and I'll get back to you.</p>
 
       <form id="contact-form" action="https://formspree.io/f/xdajwwgp" method="POST">
         <div class="form-field">
           <label class="form-label" for="f-name">Name</label>
-          <input class="form-input" id="f-name" type="text" placeholder="Your name" />
+          <input class="form-input" id="f-name" name="name" type="text" placeholder="Your name" />
         </div>
         <div class="form-field">
           <label class="form-label" for="f-email">Email</label>
-          <input class="form-input" id="f-email" type="email" placeholder="your@email.com" />
+          <input class="form-input" id="f-email" name="email" type="email" placeholder="your@email.com" />
         </div>
         <div class="form-field">
           <label class="form-label" for="f-subject">Subject</label>
-          <input class="form-input" id="f-subject" type="text" placeholder="What's this about?" />
+          <input class="form-input" id="f-subject" name="subject" type="text" placeholder="What's this about?" />
         </div>
         <div class="form-field">
           <label class="form-label" for="f-msg">Message</label>
-          <textarea class="form-textarea" id="f-msg" placeholder="Your message…"></textarea>
+          <textarea class="form-textarea" id="f-msg" name="message" placeholder="Your message…"></textarea>
         </div>
         <button type="submit" class="form-submit">Send Message</button>
       </form>
 
-      <div class="form-sent" id="form-sent"> 
-        <p>✓ &nbsp;Thanks! Message noted. (To wire this up for real, add a <a href="https://formspree.io" target="_blank" style="color:var(--sage)">Formspree</a> endpoint or similar.)</p>
+      <div class="form-sent" id="form-sent">
+        <p>✓ &nbsp;Thanks! Your message has been sent.</p>
       </div>
     </div>
 
@@ -1855,21 +1804,6 @@ function closeMobile() {
   mobileMenu.classList.remove('open');
   const spans = burger.querySelectorAll('span');
   spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
-}
-
-/* ═══════════════════════════
-   CONTACT FORM
-═══════════════════════════ */
-function handleFormSubmit() {
-  const name = document.getElementById('f-name').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  const msg = document.getElementById('f-msg').value.trim();
-  if (!name || !email || !msg) {
-    alert('Please fill in name, email, and message.');
-    return;
-  }
-  document.getElementById('contact-form').style.display = 'none';
-  document.getElementById('form-sent').style.display = 'block';
 }
 
 /* ═══════════════════════════
