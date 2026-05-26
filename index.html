@@ -1740,12 +1740,11 @@ body {
         </div>
       </div>
     </div>
-
-    <div class="contact-form-wrap">
+<div class="contact-form-wrap">
       <p class="contact-form-title">Send a message</p>
       <p class="contact-form-sub">Fill this out and I'll get back to you.</p>
 
-      <div id="contact-form">
+      <form id="contact-form" action="https://formspree.io/f/xdajwwgp" method="POST">
         <div class="form-field">
           <label class="form-label" for="f-name">Name</label>
           <input class="form-input" id="f-name" type="text" placeholder="Your name" />
@@ -1762,10 +1761,10 @@ body {
           <label class="form-label" for="f-msg">Message</label>
           <textarea class="form-textarea" id="f-msg" placeholder="Your message…"></textarea>
         </div>
-        <button class="form-submit" onclick="handleFormSubmit()">Send Message</button>
-      </div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
 
-      <div class="form-sent" id="form-sent">
+      <div class="form-sent" id="form-sent"> 
         <p>✓ &nbsp;Thanks! Message noted. (To wire this up for real, add a <a href="https://formspree.io" target="_blank" style="color:var(--sage)">Formspree</a> endpoint or similar.)</p>
       </div>
     </div>
